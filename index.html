@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Instalador de VenadoxUI, la apariencia para Discord.">
+  <title>VenadoxUI · Instalador para Discord</title>
+  <style>
+    :root {
+      --ink: #a399ce;
+      --muted: #aba6ba;
+      --violet: #8b6cff;
+      --violet-deep: #6c4db9;
+      --violet-bright: #c4b5ff;
+      --line: rgba(160, 132, 255, .28);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 50% 16%, rgba(108, 77, 185, .32), transparent 28rem),
+        linear-gradient(180deg, #35238b 0%, #090914 68%, #050509 100%);
+      background-attachment: fixed;
+    }
+
+    /* Cuadrícula sutil de fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    /* Estrellas */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, .8) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(189, 171, 255, .8) 0 1px, transparent 1.5px);
+      background-position: 0 0, 31px 47px;
+      background-size: 83px 83px, 127px 127px;
+      opacity: .3;
+    }
+
+    main {
+      width: min(780px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 56px 0;
+      display: grid;
+      place-content: center;
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .badge {
+      justify-self: center;
+      padding: 7px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--violet-bright);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      background: rgba(31, 24, 61, .6);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 10vw, 96px);
+      line-height: .9;
+      letter-spacing: -.065em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    h1 span { color: var(--violet); }
+
+    .subtitle {
+      max-width: 520px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(15px, 2vw, 17px);
+    }
+
+    /* Pasos de instalación */
+    .instalacion {
+      width: min(520px, 100%);
+      margin: 12px auto 0;
+      text-align: left;
+    }
+
+    .instalacion h2 {
+      margin: 0 0 16px;
+      font-size: clamp(18px, 3vw, 22px);
+    }
+
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      counter-reset: paso;
+    }
+
+    /* Línea vertical que une los pasos */
+    .steps::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 16px;
+      bottom: 16px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .steps li {
+      position: relative;
+      padding: 6px 0 6px 52px;
+      counter-increment: paso;
+    }
+
+    .steps li::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--violet);
+      border-radius: 50%;
+      background: #120c2e;
+      color: var(--violet-bright);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* El último paso (¡listo!) va relleno */
+    .steps li:last-child::before {
+      background: var(--violet);
+      color: #0b0720;
+    }
+
+    .steps a { color: var(--violet-bright); }
+
+    /* Botón de descarga */
+    .btn {
+      justify-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 14px 30px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(108, 77, 185, .45);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(108, 77, 185, .6);
+    }
+
+    .btn:focus-visible,
+    .steps a:focus-visible {
+      outline: 3px solid var(--violet-bright);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <main>
+    <span class="badge">Apariencia para Discord</span>
+
+    <h1>Bienvenido a <span>VenadoxUI</span> 🖌</h1>
+
+    <p class="subtitle">Este instalador es para la apariencia de Discord.</p>
+
+    <section class="instalacion" aria-labelledby="pasos-titulo">
+      <h2 id="pasos-titulo">Pasos para instalar la extensión de Discord</h2>
+      <ol class="steps">
+        <!-- TODO: cambia el href por el enlace de la página oficial -->
+        <li>Instálala desde la página oficial, que es esta.</li>
+        <li>Ten WinRAR instalado para descomprimir el/los archivos.</li>
+        <li>Haz clic derecho sobre el archivo descomprimido y elige «Instalar».</li>
+        <li>Ve a la configuración de Discord y entra donde diga VenadoxUI.</li>
+        <li>¡Enhorabuena! Ya instalaste VenadoxUI 🖌 en tu Discord.</li>
+      </ol>
+    </section>
+
+    <!-- TODO: cambia el href por el enlace de descarga -->
+    <a class="btn" href="https://github.com/PoorProgramerLOOOOL777/VenadoxUI" target="_blank" rel="noopener noreferrer">Descargar VenadoxUI 🖌</a>
+  </main>
+</body>
+</html>
